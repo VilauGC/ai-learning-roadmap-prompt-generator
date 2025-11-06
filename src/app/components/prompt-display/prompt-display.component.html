@@ -1,0 +1,97 @@
+<div class="prompt-display">
+  <div class="prompt-header">
+    <h3 class="prompt-title">Your Learning Roadmap</h3>
+    <div class="focused-providers" *ngIf="focusedProviders">
+      <span class="focus-label">Focusing on:</span>
+      <span class="focus-value">{{ focusedProviders }}</span>
+    </div>
+    <div class="knowledge-summary" *ngIf="knownCount > 0 || isFullKnowledge">
+      <div class="encouraging-message">{{ encouragingMessage }}</div>
+      <div class="stats">
+        <span class="stat">{{ knownCount }}/{{ totalCount }} terms known</span>
+        <span class="stat-divider">•</span>
+        <span class="stat">{{ knowledgePercentage }}% knowledge level</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-content" *ngIf="hasKnowledgeGaps">
+    <div class="prompt-preview">
+      <pre>{{ prompt }}</pre>
+    </div>
+
+    <div class="prompt-actions">
+      <button
+        class="copy-button"
+        [class.copied]="copied"
+        (click)="copyToClipboard()"
+      >
+        <svg *ngIf="!copied" class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 13V5C3 3.89543 3.89543 3 5 3H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg *ngIf="copied" class="icon checkmark" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M4 10L8 14L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>{{ copied ? 'Copied!' : 'Copy Learning Roadmap' }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="expert-state" *ngIf="isFullKnowledge">
+    <svg class="expert-icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="32" r="24" stroke="#34C759" stroke-width="2" fill="none"/>
+      <path d="M20 32L28 40L44 24" stroke="#34C759" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h3>You're an AI Expert!</h3>
+    <p>{{ prompt }}</p>
+  </div>
+
+  <div class="empty-state" *ngIf="knownCount === 0 && !isFullKnowledge">
+    <svg class="empty-icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      <path d="M32 20V32M32 32V44M32 32H44M32 32H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+    </svg>
+    <h3 *ngIf="!focusedProviders">Get Started</h3>
+    <h3 *ngIf="focusedProviders">Check off what you know</h3>
+    <p *ngIf="focusedProviders">Check the {{ focusedProviders }} concepts and features you're already familiar with. We'll generate a personalized learning roadmap based on your knowledge gaps.</p>
+    <p *ngIf="!focusedProviders">First, select which AI providers you want to focus on. Then, check off the concepts you already know to generate your personalized learning roadmap.</p>
+  </div>
+</div>
+
+<!-- Instructions Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <svg class="modal-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="20" fill="#34C759" opacity="0.1"/>
+        <path d="M14 24L20 30L34 16" stroke="#34C759" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Roadmap Copied!</h3>
+    </div>
+
+    <div class="modal-body">
+      <p class="modal-instruction">
+        With this prompt, you can now go and paste it into your favorite AI chat provider like
+        <strong>ChatGPT</strong> or <strong>Claude.ai</strong> and hit enter to get a learning roadmap
+        specially tailored for you.
+      </p>
+
+      <div class="modal-cta">
+        <p class="cta-text">
+          Need to make your chatbot more aware of who you are by providing a master prompt?
+        </p>
+        <a href="https://www.linkedin.com/in/vilaugeorgeciprian" target="_blank" rel="noopener noreferrer" class="cta-link">
+          <svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          <span>Reach out for help on LinkedIn</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="modal-close-button" (click)="closeModal()">Got it!</button>
+    </div>
+  </div>
+</div>
