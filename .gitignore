@@ -3,6 +3,7 @@
 # Claude AI files
 .claude/
 CLAUDE.md
+ai-provider-knowledge-terms-2025.md
 
 # Compiled output
 /dist

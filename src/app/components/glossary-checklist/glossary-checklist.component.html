@@ -63,16 +63,103 @@
           </label>
         </div>
 
-        <div class="terms-list">
-          <label *ngFor="let term of provider.terms" class="checkbox-label">
-            <input
-              type="checkbox"
-              [checked]="term.selected"
-              (change)="toggleTerm(term.id)"
-            />
-            <span class="checkbox-custom"></span>
-            <span class="checkbox-text">{{ term.term }}</span>
-          </label>
+        <!-- Level Groups -->
+        <div class="level-groups">
+          <!-- Beginner Level -->
+          <div class="level-group">
+            <div class="level-header" (click)="toggleLevelExpanded(provider.id, 'beginner')">
+              <div class="level-header-left">
+                <span class="level-badge" [style.backgroundColor]="getLevelColor('beginner')">
+                  {{ getLevelLabel('beginner') }}
+                </span>
+                <span class="level-stats">
+                  {{ getKnownCountByLevel(provider, 'beginner') }}/{{ getTermsByLevel(provider, 'beginner').length }} known
+                </span>
+              </div>
+              <span class="expand-icon" [class.expanded]="isLevelExpanded(provider.id, 'beginner')">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="level-content" [class.collapsed]="!isLevelExpanded(provider.id, 'beginner')">
+              <div class="terms-list">
+                <label *ngFor="let term of getTermsByLevel(provider, 'beginner')" class="checkbox-label">
+                  <input
+                    type="checkbox"
+                    [checked]="term.selected"
+                    (change)="toggleTerm(term.id)"
+                  />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">{{ term.term }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Intermediate Level -->
+          <div class="level-group">
+            <div class="level-header" (click)="toggleLevelExpanded(provider.id, 'intermediate')">
+              <div class="level-header-left">
+                <span class="level-badge" [style.backgroundColor]="getLevelColor('intermediate')">
+                  {{ getLevelLabel('intermediate') }}
+                </span>
+                <span class="level-stats">
+                  {{ getKnownCountByLevel(provider, 'intermediate') }}/{{ getTermsByLevel(provider, 'intermediate').length }} known
+                </span>
+              </div>
+              <span class="expand-icon" [class.expanded]="isLevelExpanded(provider.id, 'intermediate')">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="level-content" [class.collapsed]="!isLevelExpanded(provider.id, 'intermediate')">
+              <div class="terms-list">
+                <label *ngFor="let term of getTermsByLevel(provider, 'intermediate')" class="checkbox-label">
+                  <input
+                    type="checkbox"
+                    [checked]="term.selected"
+                    (change)="toggleTerm(term.id)"
+                  />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">{{ term.term }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Level -->
+          <div class="level-group">
+            <div class="level-header" (click)="toggleLevelExpanded(provider.id, 'advanced')">
+              <div class="level-header-left">
+                <span class="level-badge" [style.backgroundColor]="getLevelColor('advanced')">
+                  {{ getLevelLabel('advanced') }}
+                </span>
+                <span class="level-stats">
+                  {{ getKnownCountByLevel(provider, 'advanced') }}/{{ getTermsByLevel(provider, 'advanced').length }} known
+                </span>
+              </div>
+              <span class="expand-icon" [class.expanded]="isLevelExpanded(provider.id, 'advanced')">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="level-content" [class.collapsed]="!isLevelExpanded(provider.id, 'advanced')">
+              <div class="terms-list">
+                <label *ngFor="let term of getTermsByLevel(provider, 'advanced')" class="checkbox-label">
+                  <input
+                    type="checkbox"
+                    [checked]="term.selected"
+                    (change)="toggleTerm(term.id)"
+                  />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">{{ term.term }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
