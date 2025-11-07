@@ -54,6 +54,10 @@ export class PromptDisplayComponent implements OnInit {
     });
   }
 
+  redirectToStripe(): void {
+    window.location.href = "https://donate.stripe.com/test_6oUcN72Ly2gX7wX5EUgMw00";
+  }
+
   closeModal(): void {
     this.showModal = false;
   }
